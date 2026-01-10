@@ -1,0 +1,24 @@
+# Ignore Node.js modules
+node_modules/
+
+# Ignore Visual Studio Code
+.vscode/
+
+# Ignore Qodo AI
+.qodo/
+
+# Ignore Python IDEs
+.idea/
+
+# Ignore Python virtual environments
+venv/
+env/
+
+# Ignore OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
