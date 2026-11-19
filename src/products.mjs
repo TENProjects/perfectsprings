@@ -28,6 +28,7 @@ export const products = [
   { id: 'row', category: 'energy', name: 'ROW', type: 'Energy drink', colour: '#c6dfd7', tag: 'Meet your next adventure', description: 'Get to know ROW, part of the Perfect Springs energy drinks range.', flavours: [{ id: 'row', name: 'ROW', note: 'A bold addition to the collection.' }] }
 ];
 export const categories = [{id:'all',name:'All drinks'},{id:'water',name:'Water'},{id:'juices',name:'Juices'},{id:'flavoured',name:'Flavoured drinks'},{id:'energy',name:'Energy drinks'}];
+export const campaignPath = id => `assets/campaign/products/${id}.webp`;
 export const imagePath = id => `assets/products/${id}.webp`;
 export const getProduct = id => products.find(p => p.id === id);
 export const getSelection = value => {

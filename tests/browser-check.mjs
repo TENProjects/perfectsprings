@@ -1,7 +1,7 @@
 import { chromium } from '@playwright/test';
 import { mkdir,writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import { allVariants } from '../src/products.mjs';
+import { allVariants, products, campaignPath } from '../src/products.mjs';
 const browser=await chromium.launch({headless:true});
 const results=[];const failures=[];
 const out=resolve(process.env.QA_OUTPUT||'qa');await mkdir(out,{recursive:true});
@@ -26,6 +26,26 @@ await page.locator('#collections').scrollIntoViewIfNeeded();await page.getByRole
 await page.getByRole('button',{name:'Previous drinks',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#collection-track').scrollLeft<3);
 await page.getByRole('button',{name:'Springles',exact:true}).click();if(await page.locator('.collection-slide').count()!==4)failures.push('Collection category did not switch');if(await page.locator('#collection-track').getAttribute('aria-label')!=='Springles drinks')failures.push('Collection accessible label mismatch');
 await page.getByRole('button',{name:'ROW',exact:true}).click();if(!await page.getByRole('button',{name:'Next drinks',exact:true}).isDisabled())failures.push('Single product collection next should be disabled');
+// Every dynamically selected collection loads its own campaign and detail destination.
+const campaigns=new Set();
+for(const product of products){
+ await page.locator(`[data-collection="${product.id}"]`).click();
+ await page.keyboard.press('Tab');
+ for(let i=0;i<product.flavours.length;i++){
+  const flavour=product.flavours[i],slide=page.locator('.collection-slide').nth(i);
+  await slide.scrollIntoViewIfNeeded();await slide.locator('a').focus();
+  const photo=slide.locator('.collection-campaign img');await photo.evaluate(img=>img.decode());
+  const src=await photo.getAttribute('src');campaigns.add(src);
+  if(src!==campaignPath(flavour.id))failures.push(`Wrong campaign for ${flavour.id}`);
+  const reveal=await slide.locator('.collection-campaign').evaluate(el=>getComputedStyle(el).clipPath);
+  if(reveal!=='polygon(0px 0px, 100% 0px, 100% 100%, 0px 100%)')failures.push(`Keyboard campaign reveal failed for ${flavour.id}: ${reveal}`);
+ }
+}
+if(campaigns.size!==19)failures.push('Campaigns should be unique for all 19 variants');
+await page.goto('http://localhost:4173/about.html');
+const aboutText=await page.locator('.about-visual').evaluate(el=>{const panel=el.getBoundingClientRect(),text=el.querySelector('span').getBoundingClientRect();return{textFits:text.left>=panel.left&&text.right<=panel.right&&text.top>=panel.top&&text.bottom<=panel.bottom,radius:getComputedStyle(el).borderTopLeftRadius};});
+if(!aboutText.textFits||parseFloat(aboutText.radius)>16)failures.push({aboutText});
+await page.screenshot({path:`${out}/about-new-frame-mobile.png`,fullPage:true});
 await page.goto('http://localhost:4173/products.html');
 await page.getByRole('button',{name:'Juices',exact:true}).click();
 if(await page.locator('.catalog .product-card:visible').count()!==1)failures.push('Juice filter failed');
@@ -42,5 +62,5 @@ await page.getByLabel('Your name',{exact:false}).fill('Browser Test');await page
 // Mock success contract; no live email is sent.
 await page.route('**/api/enquiry-token',r=>r.fulfill({json:{token:'test-token'}}));await page.route('**/api/enquiries',r=>r.fulfill({json:{ok:true}}));await page.getByRole('button',{name:'Send message',exact:true}).click();await page.waitForFunction(()=>document.querySelector('.form-status').dataset.state==='success');if(await page.locator('[name=message]').inputValue()!=='')failures.push('Successful form did not reset');
 await writeFile(`${out}/browser-report.json`,JSON.stringify({checks:results.length,results,failures},null,2));
-console.log(JSON.stringify({pageViewportChecks:results.length,interactionChecks:13,failures},null,2));
+console.log(JSON.stringify({pageViewportChecks:results.length,interactionChecks:34,failures},null,2));
 await browser.close();if(failures.length)process.exitCode=1;

@@ -1,4 +1,4 @@
-import { products, getProduct, getSelection, imagePath, detailPath } from '../src/products.mjs';
+import { products, getProduct, getSelection, imagePath, campaignPath, detailPath } from '../src/products.mjs';
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 // Only predefined, non-personal values leave the interaction layer.
 function track(event, values = {}) {
@@ -169,17 +169,15 @@ if(collectionTrack){
   previous.disabled=collectionTrack.scrollLeft<=2;
   next.disabled=collectionTrack.scrollLeft>=max-2;
  }
- function campaignImage(product){return `assets/campaign/${product.id==='water'?'water-splash.webp':'gathering-small.webp'}`;}
  function slide(product,flavour){
   const article=document.createElement('article');article.className='collection-slide';article.style.setProperty('--card',flavour.colour||product.colour);
   const a=document.createElement('a');a.href=detailPath(product.id,flavour.id);a.setAttribute('aria-label',`Explore ${product.name} ${flavour.name}`);
   const art=document.createElement('div');art.className='collection-packshot';
   const image=document.createElement('img');image.src=imagePath(flavour.id);image.alt=`${product.name} ${flavour.name}`;image.width=640;image.height=850;image.loading='lazy';
   const campaign=document.createElement('div');campaign.className='collection-campaign';campaign.setAttribute('aria-hidden','true');
-  const photo=document.createElement('img');photo.src=campaignImage(product);photo.alt='';photo.width=700;photo.height=467;photo.loading='lazy';
-  const caption=document.createElement('span');caption.className='campaign-caption';caption.textContent=flavour.note;
+  const photo=document.createElement('img');photo.src=campaignPath(flavour.id);photo.alt='';photo.width=600;photo.height=800;photo.loading='lazy';
   const action=document.createElement('span');action.className='collection-action';action.textContent='Explore this drink';
-  campaign.append(photo,caption,action);art.append(image,campaign);
+  campaign.append(photo,action);art.append(image,campaign);
   const label=document.createElement('div');label.className='collection-label';
   const family=document.createElement('p');family.className='eyebrow';family.textContent=product.name;
   const title=document.createElement('h3');title.textContent=flavour.name;
