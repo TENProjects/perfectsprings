@@ -36,3 +36,6 @@ export const getSelection = value => {
   const flavour = product?.flavours.find(f => f.id === flavourId);
   return product && flavour ? { product, flavour, label: `${product.name} — ${flavour.name}` } : null;
 };
+// Stable, shareable destinations for each catalogue variant; no hash-only exploration links.
+export const detailPath = (productId, flavourId) => `products/${productId}-${flavourId}.html`;
+export const allVariants = products.flatMap(product => product.flavours.map(flavour => ({ product, flavour, path: detailPath(product.id, flavour.id) })));

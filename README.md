@@ -46,3 +46,9 @@ The browser check expects a local server at port 4173. It checks ten pages at fi
 Core Web Vitals are targets, not measured production claims. Field INP and real email receipt need verification after deployment and configuration.
 
 Analytics is opt-in: listen for `perfectsprings:analytics` CustomEvents, which contain predefined product/category IDs and form kind only. Connect an approved analytics provider after confirming consent requirements.
+
+## Dedicated product details
+
+All 19 identified catalogue variants have standalone pages at `products/<family>-<variant>.html`. Homepage carousel links, spotlight actions and catalogue cards open these pages. Each page includes original product artwork, an original introduction/body, related flavours, serving inspiration, factual catalogue fields, label/specification guidance and product-specific contact/distribution actions.
+
+Edit draft copy in `src/product-details.mjs` and the template in `src/product-detail-view.mjs`. Review `docs/PRODUCT_CONTENT_REVIEW.md` for research, uncertainties and the owner's outstanding facts. No unverified nutrition, ingredient quantities, prices, ratings or availability have been invented. The browser check now covers all 29 pages at five viewport sizes.

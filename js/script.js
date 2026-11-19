@@ -1,4 +1,4 @@
-import { products, getProduct, getSelection, imagePath } from '../src/products.mjs';
+import { products, getProduct, getSelection, imagePath, detailPath } from '../src/products.mjs';
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 // Only predefined, non-personal values leave the interaction layer.
 function track(event, values = {}) {
@@ -56,7 +56,7 @@ for (const button of document.querySelectorAll('[data-spotlight]')) button.addEv
   document.querySelector('.spotlight').style.setProperty('--flavour', flavour.colour);
   document.querySelector('.outline-word').textContent = flavour.name.toUpperCase();
   document.querySelector('.flavour-note').textContent = flavour.note;
-  document.querySelector('#spotlight-link').href = `products.html?drink=cast&flavour=${id}#explorer`;
+  document.querySelector('#spotlight-link').href = detailPath('cast',id);
   document.querySelectorAll('[data-spotlight]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
   track('flavour_selected', { product: 'cast', flavour: id });
 });
@@ -95,6 +95,7 @@ async function selectProduct(productId, flavourId, updateHistory = true) {
     return b;
   }));
   document.querySelector('#product-enquiry').href = `contact.html?subject=product&product=${encodeURIComponent(`${product.id}:${flavour.id}`)}`;
+  document.querySelector('#product-detail-link').href=detailPath(product.id,flavour.id);
   if(updateHistory) updateURL();
 }
 if(explorer) {
@@ -171,7 +172,7 @@ if(collectionTrack){
  function campaignImage(product){return `assets/campaign/${product.id==='water'?'water-splash.webp':'gathering-small.webp'}`;}
  function slide(product,flavour){
   const article=document.createElement('article');article.className='collection-slide';article.style.setProperty('--card',flavour.colour||product.colour);
-  const a=document.createElement('a');a.href=`products.html?drink=${product.id}&flavour=${flavour.id}#explorer`;a.setAttribute('aria-label',`Explore ${product.name} ${flavour.name}`);
+  const a=document.createElement('a');a.href=detailPath(product.id,flavour.id);a.setAttribute('aria-label',`Explore ${product.name} ${flavour.name}`);
   const art=document.createElement('div');art.className='collection-packshot';
   const image=document.createElement('img');image.src=imagePath(flavour.id);image.alt=`${product.name} ${flavour.name}`;image.width=640;image.height=850;image.loading='lazy';
   const campaign=document.createElement('div');campaign.className='collection-campaign';campaign.setAttribute('aria-hidden','true');
