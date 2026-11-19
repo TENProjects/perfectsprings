@@ -23,3 +23,4 @@
 .explorer-image:has(img[src*=water]) img{object-fit:contain}
 .spotlight-image{object-fit:cover}
 @media(hover:hover){.collection-slide a:hover .collection-packshot>img{transform:translateY(-5px) scale(1.28)}.product-card a:hover img{transform:translateY(-5px) scale(1.27)}.product-card[data-category=water] a:hover img{transform:translateY(-5px) scale(1.02)}}
+.collection-tabs button,.flavour-buttons button,.explorer-options button{min-height:44px}
