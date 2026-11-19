@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile, access } from 'node:fs/promises';
+import { resolve } from 'node:path';
+import { products } from '../src/products.mjs';
+import { articles } from '../src/articles.mjs';
+import { render, pageNames } from '../src/site.mjs';
+const root=resolve(import.meta.dirname,'..');
+test('all published pages have semantic navigation, one h1 and metadata',()=>{for(const p of pageNames){const html=render(p);assert.equal((html.match(/<h1[ >]/g)||[]).length,1,p);assert.match(html,/name="description"/);assert.match(html,/id="main"/);if(p!=='privacy')assert.match(html,/aria-current="page"/);assert.doesNotMatch(html,/href="#"|Lorem ipsum|Building your API Stack|UX review presentations|id="preloader"/);}});
+test('all catalogue variants have optimized local assets',async()=>{for(const p of products)for(const f of p.flavours)await access(resolve(root,`assets/products/${f.id}.webp`));});
+test('article pages have real complete content and root-relative base',()=>{for(const article of articles){const html=render('blog',{article});assert.match(html,/<base href="\.\.\/">/);assert.ok(article.sections.length>=3);assert.match(html,/Back to the journal/);}});
+test('all local page links and image paths resolve',async()=>{for(const name of [...pageNames.map(p=>`${p}.html`),...articles.map(a=>`journal/${a.slug}.html`)]){const html=await readFile(resolve(root,name),'utf8');for(const [,url] of html.matchAll(/(?:href|src)="([^"]+)"/g)){if(/^(https?:|mailto:|tel:|#|\.\.\/)/.test(url))continue;const clean=url.split(/[?#]/)[0].replaceAll('&amp;','&');if(clean)await access(resolve(root,clean));}}});
+test('worker build imports resolve and serves pages and module assets',async()=>{const worker=(await import('../dist/server/index.js')).default;for(const p of ['/','/products.html','/src/products.mjs','/assets/campaign/gathering.webp']){const response=await worker.fetch(new Request(`https://example.test${p}`),{});assert.equal(response.status,200,p);}assert.equal((await worker.fetch(new Request('https://example.test/.env'),{})).status,404);assert.equal((await worker.fetch(new Request('https://example.test/api/enquiry-token'),{})).status,503);});

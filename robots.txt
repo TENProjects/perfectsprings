@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://perfect-springs-refresh.olatunjihammedtunde.chatgpt.site/sitemap.xml

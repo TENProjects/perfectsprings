@@ -22,3 +22,12 @@ env/
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Local configuration, build output and QA
+.env
+.env.*
+!.env.example
+dist/
+playwright-report/
+test-results/
+qa/
