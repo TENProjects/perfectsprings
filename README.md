@@ -66,3 +66,7 @@ Run `SITE_URL=https://perfectspringsllc.com npm run build:vps` to create `dist/p
 The header's moon/sun button switches themes on every page. The first visit follows the system preference; an explicit choice is saved locally and stays consistent across page navigation and browser tabs. The small `js/theme.js` script runs before styles paint to apply the saved theme promptly. Theme switching remains usable when browser storage is blocked. `theme.css` controls text, surfaces, forms, image framing, navigation, focus indicators and the water preloader. Product and logo files retain their original colours. Reduced motion disables theme transitions.
 
 Run `npm run test:theme` against a local server for all 29 pages in both themes at five widths, plus preference and keyboard checks. This also applies to the public and VPS builds.
+
+## Temporary GitHub Pages preview
+
+Run `npm run build:pages` to produce `dist/pages/`, ready to publish from the root of a `gh-pages` branch. The default preview URL is `https://tenprojects.github.io/perfectsprings/`; override `PAGES_URL` for another repository. All nested product and journal pages retain their relative asset/navigation paths. This preview is marked noindex, includes `.nojekyll`, and disables enquiry submission with a clear message because GitHub Pages has no Node API. Product selection, theme switching and visual interactions remain available. The production and VPS builds keep working enquiries when configured.

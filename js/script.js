@@ -119,6 +119,7 @@ if(explorer) {
 
 const form=document.querySelector('.enquiry-form');
 if(form) {
+  const staticPreview=document.body.dataset.staticPreview==='true';
   const status=form.querySelector('.form-status');
   const submit=form.querySelector('button[type=submit]');
   const submitText=submit.textContent;
@@ -130,7 +131,9 @@ if(form) {
   let submitted=false;
   let payloadSnapshot='';
   function setStatus(text,state=''){status.textContent=text;status.dataset.state=state;}
+  if(staticPreview){submit.disabled=true;submit.textContent='Preview only';setStatus('Online enquiries are unavailable in this preview. Please call or email our team.','notice');}
   function ensureToken(){
+    if(staticPreview)return Promise.reject(new Error('Online enquiries are unavailable in this preview. Please call or email our team.'));
     if(!tokenPromise) tokenPromise=fetch('/api/enquiry-token',{headers:{Accept:'application/json'}}).then(async r=>{
       const data=await r.json();if(!r.ok)throw new Error(data.error || 'Online enquiries are temporarily unavailable. Please call or email our team.');
       form.elements.token.value=data.token;return data;

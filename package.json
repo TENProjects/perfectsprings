@@ -13,7 +13,8 @@
     "test": "node --test tests/*.test.mjs",
     "test:browser": "node tests/browser-check.mjs",
     "build:vps": "node scripts/build.mjs --public && node scripts/package-vps.mjs",
-    "test:theme": "node tests/theme-browser.mjs"
+    "test:theme": "node tests/theme-browser.mjs",
+    "build:pages": "node scripts/build-pages.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0"
