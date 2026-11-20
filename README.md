@@ -60,3 +60,9 @@ Every page includes the shared branded water-fill intro. It uses the original lo
 ## VPS / public build
 
 Run `SITE_URL=https://perfectspringsllc.com npm run build:vps` to create `dist/public/` and the complete `dist/perfectsprings-vps.tar.gz` release. Deployment instructions, Nginx and systemd configuration are in [docs/VPS_HOSTING.md](docs/VPS_HOSTING.md). This target preserves the separate Sites Worker build.
+
+## Light and dark themes
+
+The header's moon/sun button switches themes on every page. The first visit follows the system preference; an explicit choice is saved locally and stays consistent across page navigation and browser tabs. The small `js/theme.js` script runs before styles paint to apply the saved theme promptly. Theme switching remains usable when browser storage is blocked. `theme.css` controls text, surfaces, forms, image framing, navigation, focus indicators and the water preloader. Product and logo files retain their original colours. Reduced motion disables theme transitions.
+
+Run `npm run test:theme` against a local server for all 29 pages in both themes at five widths, plus preference and keyboard checks. This also applies to the public and VPS builds.

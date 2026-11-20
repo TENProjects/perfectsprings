@@ -78,3 +78,5 @@ The pages and script should return 200; `/.env` should be denied. The token endp
 For updates, retain the previous release outside the document root, replace the release files and restart `perfectsprings`. Keep `/etc/perfectsprings.env` unchanged. Roll back by restoring the prior release and restarting. Nginx configuration/TLS and server access were not provisioned by creating this package.
 
 Reference documentation: [Nginx reverse proxy headers](https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header), [Node.js CLI and environment files](https://nodejs.org/api/cli.html#--env-filefile), [Certbot Nginx integration](https://eff-certbot.readthedocs.io/en/stable/using.html#nginx).
+
+The public build includes light/dark themes and the shared preloader. Deploy `theme.css` and `js/theme.js` together with the HTML; the early theme script applies the saved/system preference before styles paint. Preferences are browser-local and do not need a server setting.

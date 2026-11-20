@@ -22,7 +22,7 @@ const server=http.createServer(async(req,res)=>{
   else {
    const path=decodeURIComponent(url.pathname==='/'?'/index.html':url.pathname);
    const file=resolve(publicRoot,`.${path}`);
-   const permitted=(path.startsWith('/assets/')&&!path.endsWith('-original.png'))||path==='/style.css'||['/js/script.js','/js/preloader.js'].includes(path)||path==='/src/products.mjs'||/^\/(?:index|products|about|blog|contact|distributor|privacy)\.html$/.test(path)||/^\/(?:journal|products)\/[a-z-]+\.html$/.test(path)||['/sitemap.xml','/robots.txt'].includes(path);
+   const permitted=(path.startsWith('/assets/')&&!path.endsWith('-original.png'))||['/style.css','/theme.css'].includes(path)||['/js/script.js','/js/preloader.js','/js/theme.js'].includes(path)||path==='/src/products.mjs'||/^\/(?:index|products|about|blog|contact|distributor|privacy)\.html$/.test(path)||/^\/(?:journal|products)\/[a-z-]+\.html$/.test(path)||['/sitemap.xml','/robots.txt'].includes(path);
    if(!permitted||!file.startsWith(`${publicRoot}/`)||!allowed.includes(extname(file)))response=new Response('Not found',{status:404});
    else {const bytes=await readFile(file);response=new Response(req.method==='HEAD'?null:bytes,{headers:{'Content-Type':{'.html':'text/html; charset=utf-8','.css':'text/css','.js':'text/javascript','.mjs':'text/javascript','.webp':'image/webp','.xml':'application/xml','.txt':'text/plain'}[extname(file)],'X-Content-Type-Options':'nosniff','Cache-Control':'no-cache'}});}
   }

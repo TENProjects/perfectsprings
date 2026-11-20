@@ -1,0 +1,66 @@
+/* Shared display tokens keep text, controls and surfaces in the same theme. */
+:root{color-scheme:light;--surface:#fffdf8;--surface-soft:#e8eee3;--header-surface:#faf7eef7;--control-ink:#fff;--muted:#526c60}
+:root[data-theme=dark]{color-scheme:dark;--ink:#e4f3eb;--teal:#86d9c5;--mint:#1c3a30;--cream:#0c211d;--line:#345348;--body:#b9cbc0;--surface:#142e27;--surface-soft:#19372e;--header-surface:#0c211df7;--control-ink:#092e25;--muted:#a2bdb0}
+body,.brand-preloader{background:var(--cream)}
+.site-header{background:var(--header-surface)}
+.site-footer,.values-section,.application-section{background:var(--surface-soft)}
+.form-panel{background:var(--surface)}
+.contact-card{background:var(--mint)}
+.nav-wrap{gap:20px}.nav-wrap>.brand{order:0}.nav-wrap>nav{order:1;gap:24px}.nav-cta{margin-left:0}
+.theme-toggle{order:2;display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;padding:0;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--ink);transition:background-color .2s,border-color .2s}
+.theme-toggle:hover{background:var(--mint);border-color:var(--teal)}
+.theme-toggle .theme-sun{display:none}
+[data-theme=dark] .theme-toggle .theme-sun{display:block}
+[data-theme=dark] .theme-toggle .theme-moon{display:none}
+html:not([data-theme]) .theme-toggle{display:none}
+.button,.filters button[aria-pressed=true],.explorer-options button[aria-pressed=true],.detail-flavour-links a[aria-current=page]{color:var(--control-ink)}
+.collection-tabs button[aria-pressed=true]{color:var(--cream)}
+.footer-bottom,.hero-foot,.carousel-status,.collection-description,.product-breadcrumb,.detail-quick-facts dt,.optional,.form-footnote{color:var(--muted)}
+.value-icon{color:var(--teal)}
+:root[data-theme=dark] .announcement{background:#123c31;color:#d0f3df}
+:root[data-theme=dark] .button:hover{background:#b0ecda;color:#092e25}
+:root[data-theme=dark] .button.outline{color:var(--ink);border-color:#6a8b7b}
+:root[data-theme=dark] .button.outline:hover{background:var(--mint)}
+:root[data-theme=dark] .button.light{background:#eef4e7;color:#07594f;border-color:#eef4e7}
+:root[data-theme=dark] .ribbon{color:#103f38}
+:root[data-theme=dark] .partnership,:root[data-theme=dark] .detail-enquiry,:root[data-theme=dark] .distributor-hero{background:#123f32;color:var(--ink)}
+:root[data-theme=dark] .partnership .eyebrow,:root[data-theme=dark] .partnership p,:root[data-theme=dark] .detail-enquiry .eyebrow,:root[data-theme=dark] .detail-enquiry p{color:#bfd9c9}
+:root[data-theme=dark] .energy-banner{background:#132e27;color:var(--ink)}
+:root[data-theme=dark] .spotlight,:root[data-theme=dark] .detail-inspiration{background:color-mix(in srgb,var(--flavour) 13%,#112a23)}
+/* Product art stays true to the original packaging; framing changes, never the labels. */
+:root[data-theme=dark] .collection-packshot{background:#f2efe5;box-shadow:0 10px 30px #0002}
+:root[data-theme=dark] .product-art,:root[data-theme=dark] .explorer-image,:root[data-theme=dark] .journal-image,:root[data-theme=dark] .feature-art,:root[data-theme=dark] .spotlight-art,:root[data-theme=dark] .detail-stage{--ink:#103f38;--teal:#07594f;--body:#51605a;--cream:#faf7ee;--mint:#dcefe7;--line:#b7c9bb;color:var(--ink);background:var(--flavour,var(--card,#e4ede1));box-shadow:0 12px 35px #0003}
+:root[data-theme=dark] .product-art{background:linear-gradient(135deg,var(--card) 0 86%,#f0f3e9 86%)}
+:root[data-theme=dark] .detail-stage{background:linear-gradient(135deg,var(--flavour) 0 84%,#e8eddf 84%);box-shadow:9px 9px 0 #86d9c51a}
+:root[data-theme=dark] .collection-action{background:#07594f;color:#fff}
+:root[data-theme=dark] .carousel-control{background:#173b30f2;color:var(--ink);border-color:#597e6b;box-shadow:0 3px 15px #0003}
+:root[data-theme=dark] .hero-art{background:#163b32;--ink:#103f38;--teal:#07594f;--cream:#faf7ee}
+:root[data-theme=dark] .hero-art .splash{opacity:.74}
+:root[data-theme=dark] .hero-art-word{color:#063e384d}
+:root[data-theme=dark] .hero-stamp{color:#103f38}
+:root[data-theme=dark] .hero-art-caption{color:#103f38;background:#e7f5e0c9;padding:4px 8px;border-radius:4px}
+:root[data-theme=dark] .about-visual{background:linear-gradient(125deg,#21483a 0 78%,#2d5b47 78%);box-shadow:14px 14px 0 #7a713b}
+:root[data-theme=dark] .about-water{filter:drop-shadow(0 12px 18px #0003)}
+:root[data-theme=dark] .moments-image{box-shadow:-12px 12px 0 #345547}
+:root[data-theme=dark] .moments-image img,:root[data-theme=dark] .detail-other img{box-shadow:0 12px 30px #0003}
+:root[data-theme=dark] .energy-image{background:linear-gradient(140deg,#bdd7c2 0 75%,#e9cf72 75%)}
+:root[data-theme=dark] .feature-art>span{color:#103f38}
+:root[data-theme=dark] .round-plus{border-color:#719281}
+:root[data-theme=dark] .flavour-buttons button,:root[data-theme=dark] .detail-flavour-links a,:root[data-theme=dark] .filters button,:root[data-theme=dark] .explorer-options button{border-color:#6e8c7c;color:var(--ink)}
+:root[data-theme=dark] .flavour-buttons button[aria-pressed=true]{background:#254b3d;border-color:var(--teal)}
+:root[data-theme=dark] .filters button[aria-pressed=true],:root[data-theme=dark] .explorer-options button[aria-pressed=true],:root[data-theme=dark] .detail-flavour-links a[aria-current=page]{color:var(--control-ink)}
+:root[data-theme=dark] .values-grid article,:root[data-theme=dark] .footer-bottom,:root[data-theme=dark] .detail-serving+.detail-serving{border-color:var(--line)}
+:root[data-theme=dark] .form-grid input,:root[data-theme=dark] .form-grid select,:root[data-theme=dark] .form-grid textarea{border-color:#65816f;background-color:#10281f;color:var(--ink)}
+:root[data-theme=dark] .form-grid select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%23e4f3eb' stroke-width='1.5'/%3E%3C/svg%3E")}
+:root[data-theme=dark] input::placeholder,:root[data-theme=dark] textarea::placeholder{color:#9bb4a4;opacity:1}
+:root[data-theme=dark] .form-status[data-state=error]{color:#ffb69e}
+:root[data-theme=dark] .journal-card a:hover h3{color:#b7efd9}
+:root[data-theme=dark] .skip-link{color:#103f38}
+:root[data-theme=dark] a:focus-visible,:root[data-theme=dark] button:focus-visible,:root[data-theme=dark] input:focus-visible,:root[data-theme=dark] textarea:focus-visible,:root[data-theme=dark] select:focus-visible,:root[data-theme=dark] summary:focus-visible{outline-color:#f5d76e}
+:root[data-theme=dark] .loader-caption{color:var(--body)}
+:root[data-theme=dark] .loader-skip{color:var(--teal);border-color:var(--line)}
+body,.site-header,.site-footer,.values-section,.application-section,.form-panel,.contact-card,.spotlight,.detail-inspiration{transition:background-color .22s ease,color .22s ease,border-color .22s ease}
+@media(min-width:851px) and (max-width:1100px){.nav-wrap{gap:14px}.nav-wrap>nav{gap:16px}nav>a:not(.button){font-size:.8rem}.nav-cta{font-size:.75rem;padding:10px 14px}}
+@media(max-width:850px){.nav-wrap{gap:12px}.theme-toggle{margin-left:auto}.menu-toggle{order:3}.nav-wrap>nav.open{gap:5px}}
+@media(max-width:700px){:root[data-theme=dark] .about-visual{box-shadow:8px 8px 0 #7a713b}:root[data-theme=dark] .moments-image{box-shadow:-7px 7px 0 #345547}}
+@media(prefers-reduced-motion:reduce){body,.site-header,.site-footer,.values-section,.application-section,.form-panel,.contact-card,.spotlight,.detail-inspiration,.theme-toggle{transition:none}}
