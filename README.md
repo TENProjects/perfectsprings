@@ -56,3 +56,7 @@ Edit draft copy in `src/product-details.mjs` and the template in `src/product-de
 The visual update replaces arch-shaped image panels with straight editorial frames, small angular corner accents and offset colour blocks. Collection cards now reveal individual product campaign scenes for all 19 variants; both server-rendered and category-switched cards share the same asset resolver. See `assets/ASSETS.md` for generated-image provenance and packaging review notes.
 
 Every page includes the shared branded water-fill intro. It uses the original logo, CSS water/splash/ripple animation and an independent `js/preloader.js` dismissal script. Normal loading clears it after roughly 1.25 seconds, with a 1.9-second script deadline, a 2.6-second CSS failsafe, a Skip intro button and immediate reduced-motion/no-JavaScript fallbacks.
+
+## VPS / public build
+
+Run `SITE_URL=https://perfectspringsllc.com npm run build:vps` to create `dist/public/` and the complete `dist/perfectsprings-vps.tar.gz` release. Deployment instructions, Nginx and systemd configuration are in [docs/VPS_HOSTING.md](docs/VPS_HOSTING.md). This target preserves the separate Sites Worker build.

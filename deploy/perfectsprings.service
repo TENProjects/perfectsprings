@@ -1,0 +1,24 @@
+[Unit]
+Description=Perfect Springs enquiry API
+After=network.target
+
+[Service]
+Type=simple
+User=perfectsprings
+Group=perfectsprings
+WorkingDirectory=/var/www/perfectsprings
+Environment=NODE_ENV=production
+Environment=PUBLIC_DIR=./public
+Environment=TRUST_PROXY=true
+Environment=PORT=4173
+EnvironmentFile=/etc/perfectsprings.env
+ExecStart=/usr/bin/node server/index.mjs
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

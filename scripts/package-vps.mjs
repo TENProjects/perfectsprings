@@ -1,0 +1,15 @@
+import {cp,mkdir,writeFile,rm} from 'node:fs/promises';
+import {resolve,join} from 'node:path';
+import {execFileSync} from 'node:child_process';
+const root=resolve(import.meta.dirname,'..'),dist=join(root,'dist'),release=join(dist,'vps');
+await rm(release,{recursive:true,force:true});await mkdir(join(release,'server'),{recursive:true});await mkdir(join(release,'src'),{recursive:true});
+await cp(join(dist,'public'),join(release,'public'),{recursive:true});
+for(const file of ['index.mjs','enquiries.mjs'])await cp(join(root,'server',file),join(release,'server',file));
+await cp(join(root,'src/products.mjs'),join(release,'src/products.mjs'));
+await cp(join(root,'deploy'),join(release,'deploy'),{recursive:true});
+await cp(join(root,'docs/VPS_HOSTING.md'),join(release,'DEPLOYMENT.md'));
+await cp(join(root,'.env.example'),join(release,'.env.example'));
+await writeFile(join(release,'package.json'),JSON.stringify({name:'perfect-springs-vps',private:true,type:'module',engines:{node:'>=22'},scripts:{start:'PUBLIC_DIR=./public node --env-file-if-exists=.env server/index.mjs'}},null,2)+'\n');
+execFileSync('tar',['-czf',join(dist,'perfectsprings-vps.tar.gz'),'-C',release,'.']);
+execFileSync('tar',['-czf',join(dist,'perfectsprings-public.tar.gz'),'-C',join(dist,'public'),'.']);
+console.log('VPS release: dist/vps\nFull package: dist/perfectsprings-vps.tar.gz\nPublic files only: dist/perfectsprings-public.tar.gz');
